@@ -23,14 +23,10 @@ font-family:Arial, sans-serif;
 color:white;
 }
 
-/* player container */
-
 .player{
 position:relative;
 width:420px;
 }
-
-/* case */
 
 .case{
 width:100%;
@@ -38,7 +34,7 @@ display:block;
 filter:drop-shadow(0 0 20px rgba(255,255,255,0.1));
 }
 
-/* cd wrapper */
+/* wrapper handles centering AND spinning */
 
 .cd-wrapper{
 position:absolute;
@@ -46,16 +42,24 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 width:62%;
-transition:transform 0.8s ease;
 }
 
-/* slide out effect */
+/* spin the wrapper instead of the image */
 
-.playing .cd-wrapper{
-transform:translate(-30%,-50%);
+.spin{
+animation:spin 12s linear infinite;
 }
 
-/* cd */
+@keyframes spin{
+from{
+transform:translate(-50%,-50%) rotate(0deg);
+}
+to{
+transform:translate(-50%,-50%) rotate(360deg);
+}
+}
+
+/* cd image */
 
 .cd{
 width:100%;
@@ -69,19 +73,6 @@ transform:scale(1.05);
 filter:brightness(1.2);
 }
 
-/* spinning */
-
-.spin{
-animation:spin 3s linear infinite;
-}
-
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-/* caption */
-
 .caption{
 margin-top:18px;
 text-align:center;
@@ -89,8 +80,6 @@ font-size:14px;
 opacity:.75;
 letter-spacing:1px;
 }
-
-/* title */
 
 .title{
 position:absolute;
@@ -107,7 +96,7 @@ opacity:.85;
 
 <body>
 
-<div class="player" id="player">
+<div class="player">
 
 <div class="title">
 Mari & Jon 💿 1 Month
@@ -115,7 +104,7 @@ Mari & Jon 💿 1 Month
 
 <img src="case.png" class="case">
 
-<div class="cd-wrapper">
+<div class="cd-wrapper" id="cd-wrapper">
 <img src="cd.png" class="cd" id="cd">
 </div>
 
@@ -126,37 +115,24 @@ click the CD to play / pause
 </div>
 
 <audio id="song">
-<source src="You re All I Want - Cigarettes After Sex.mp3" type="audio/mpeg">
+<source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
 const cd = document.getElementById("cd");
+const wrapper = document.getElementById("cd-wrapper");
 const song = document.getElementById("song");
-const player = document.getElementById("player");
 
-let playing = false;
+cd.addEventListener("click", () => {
 
-cd.addEventListener("click", async () => {
-
-if(!playing){
-
-await song.play();
-
-cd.classList.add("spin");
-player.classList.add("playing");
-
-playing = true;
-
-}else{
-
+if(song.paused){
+song.play();
+wrapper.classList.add("spin");
+}
+else{
 song.pause();
-
-cd.classList.remove("spin");
-player.classList.remove("playing");
-
-playing = false;
-
+wrapper.classList.remove("spin");
 }
 
 });
