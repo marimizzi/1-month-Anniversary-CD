@@ -36,24 +36,24 @@ width:100%;
 display:block;
 }
 
-/* cd disc */
+/* wrapper handles positioning */
 
-.cd{
+.cd-wrapper{
 position:absolute;
-width:62%;
 top:50%;
 left:50%;
 transform:translate(-50%, -50%);
+width:62%;
+}
+
+/* cd */
+
+.cd{
+width:100%;
 cursor:pointer;
 }
 
-/* hover effect */
-
-.cd:hover{
-transform:scale(1.05);
-}
-
-/* spinning animation */
+/* spin animation */
 
 .spin{
 animation:spin 3s linear infinite;
@@ -61,14 +61,12 @@ animation:spin 3s linear infinite;
 
 @keyframes spin{
 from{
-transform:translate(-50%, -50%) rotate(0deg);
+transform:rotate(0deg);
 }
 to{
-transform:translate(-50%, -50%) rotate(360deg);
+transform:rotate(360deg);
 }
 }
-
-/* small caption */
 
 .caption{
 position:absolute;
@@ -89,7 +87,9 @@ opacity:.7;
 
 <img src="case.png" class="case">
 
+<div class="cd-wrapper">
 <img src="cd.png" class="cd" id="cd">
+</div>
 
 <div class="caption">
 click the CD to play / pause
@@ -108,10 +108,10 @@ const song = document.getElementById("song");
 
 let playing = false;
 
-cd.addEventListener("click", () => {
+cd.addEventListener("click", async () => {
 
 if(!playing){
-song.play();
+await song.play();
 cd.classList.add("spin");
 playing = true;
 }
