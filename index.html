@@ -14,36 +14,45 @@ padding:0;
 }
 
 body{
-background:#0d0d0d;
+background:radial-gradient(circle at center,#1a1a1a,#000);
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 font-family:Arial, sans-serif;
+color:white;
 }
 
-/* container */
+/* player container */
 
 .player{
 position:relative;
 width:420px;
 }
 
-/* cd case */
+/* case */
 
 .case{
 width:100%;
 display:block;
+filter:drop-shadow(0 0 20px rgba(255,255,255,0.1));
 }
 
-/* wrapper handles positioning */
+/* cd wrapper */
 
 .cd-wrapper{
 position:absolute;
 top:50%;
 left:50%;
-transform:translate(-50%, -50%);
+transform:translate(-50%,-50%);
 width:62%;
+transition:transform 0.8s ease;
+}
+
+/* slide out effect */
+
+.playing .cd-wrapper{
+transform:translate(-30%,-50%);
 }
 
 /* cd */
@@ -51,31 +60,46 @@ width:62%;
 .cd{
 width:100%;
 cursor:pointer;
+border-radius:50%;
+transition:transform .3s ease, filter .3s ease;
 }
 
-/* spin animation */
+.cd:hover{
+transform:scale(1.05);
+filter:brightness(1.2);
+}
+
+/* spinning */
 
 .spin{
 animation:spin 3s linear infinite;
 }
 
 @keyframes spin{
-from{
-transform:rotate(0deg);
-}
-to{
-transform:rotate(360deg);
-}
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
 }
 
+/* caption */
+
 .caption{
+margin-top:18px;
+text-align:center;
+font-size:14px;
+opacity:.75;
+letter-spacing:1px;
+}
+
+/* title */
+
+.title{
 position:absolute;
-bottom:-40px;
+top:-50px;
 width:100%;
 text-align:center;
-color:white;
-font-size:14px;
-opacity:.7;
+font-size:20px;
+letter-spacing:2px;
+opacity:.85;
 }
 
 </style>
@@ -83,7 +107,11 @@ opacity:.7;
 
 <body>
 
-<div class="player">
+<div class="player" id="player">
+
+<div class="title">
+Mari & Jon 💿 1 Month
+</div>
 
 <img src="case.png" class="case">
 
@@ -105,20 +133,30 @@ click the CD to play / pause
 
 const cd = document.getElementById("cd");
 const song = document.getElementById("song");
+const player = document.getElementById("player");
 
 let playing = false;
 
 cd.addEventListener("click", async () => {
 
 if(!playing){
+
 await song.play();
+
 cd.classList.add("spin");
+player.classList.add("playing");
+
 playing = true;
-}
-else{
+
+}else{
+
 song.pause();
+
 cd.classList.remove("spin");
+player.classList.remove("playing");
+
 playing = false;
+
 }
 
 });
