@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mari & Jon</title>
+
+<style>
+
+body{
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.player{
+  position:relative;
+  width:400px;
+}
+
+.case{
+  width:100%;
+}
+
+.cd{
+  position:absolute;
+  width:250px;
+  top:80px;
+  left:75px;
+  cursor:pointer;
+}
+
+.spin{
+  animation:spin 4s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+<img src="case.png" class="case">
+
+<img src="cd.png" class="cd" id="cd">
+
+</div>
+
+<audio id="song">
+<source src="song.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+const cd = document.getElementById("cd");
+const song = document.getElementById("song");
+
+cd.onclick = function(){
+
+song.play();
+cd.classList.add("spin");
+
+}
+
+</script>
+
+</body>
+</html>
