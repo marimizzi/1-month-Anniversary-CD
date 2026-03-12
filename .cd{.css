@@ -1,0 +1,9 @@
+.cd{
+position:absolute;
+width:62%;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+cursor:pointer;
+transition:transform .3s;
+}
