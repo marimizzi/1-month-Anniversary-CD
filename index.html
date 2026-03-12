@@ -6,37 +6,37 @@
 <style>
 
 body{
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
 .player{
-  position:relative;
-  width:400px;
+position:relative;
+width:500px;
 }
 
 .case{
-  width:100%;
+width:100%;
 }
 
 .cd{
-  position:absolute;
-  width:250px;
-  top:80px;
-  left:75px;
-  cursor:pointer;
+position:absolute;
+width:300px;
+top:100px;
+left:100px;
+cursor:pointer;
 }
 
 .spin{
-  animation:spin 4s linear infinite;
+animation:spin 3s linear infinite;
 }
 
 @keyframes spin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
 }
 
 </style>
@@ -62,10 +62,8 @@ const cd = document.getElementById("cd");
 const song = document.getElementById("song");
 
 cd.onclick = function(){
-
 song.play();
 cd.classList.add("spin");
-
 }
 
 </script>
